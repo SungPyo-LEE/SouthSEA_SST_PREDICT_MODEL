@@ -7,7 +7,8 @@ from sklearn.model_selection import train_test_split
 
 #TensorFlow model 이용, CNN
 from tensorflow.keras import layers
-
+from tensorflow.keras.layers import Dense
+import sys
 import matplotlib.pyplot as plt
 
 util = Util()
@@ -71,18 +72,25 @@ for i in range(m):
 x = np.array(x)
 
 # 출력값, 6달 뒤의 대한해협 수온과 남해의 수온
-y1 = Ks_result
-y2 = ss_result
+y1 = np.array(Ks_result)
+y2 = np.array(ss_result)
 
 ## 다중분류니까 Tensorflow를 이용하자... 원핫인코딩에 사용
 
 # 학습데이터, 결과데이터 나누기, 7:3 비율
-x_train, x_val, y_train, y_val = train_test_split(x, y1, stratify=y1,
+x_train, x_val, y1_train, y1_val = train_test_split(x, y1, stratify=y1,
+                                                  test_size=0.2, random_state=42)
+
+# 학습데이터, 결과데이터 나누기, 7:3 비율
+x_train, x_val, y2_train, y2_val = train_test_split(x, y2, stratify=y2,
                                                   test_size=0.2, random_state=42)
 
 #원-핫-인코딩
-y_train_encoded = tf.keras.utils.to_categorical(y_train)
-y_val_encoded = tf.keras.utils.to_categorical(y_val)
+y1_train_encoded = tf.keras.utils.to_categorical(y1_train)
+y1_val_encoded = tf.keras.utils.to_categorical(y1_val)
+
+y2_train_encoded = tf.keras.utils.to_categorical(y2_train)
+y2_val_encoded = tf.keras.utils.to_categorical(y2_val)
 #END PREPROCESSING
 ###########################################################################
 
@@ -90,14 +98,35 @@ y_val_encoded = tf.keras.utils.to_categorical(y_val)
 #Modeling
 model = tf.keras.Sequential()
 ## 은닉층을 정의함. 유닛개수 100개, input_shape : 샘플수를 제외한 입력형태를 정의함.
-model.add(layers.Dense(100, activation='sigmoid', input_shape=(367,)))
+model.add(layers.Dense(100, activation='sigmoid',input_shape=(3,)))
 ## 출력층을 정의함. 유닛수는 10개
-model.add(layers.Dense(10, activation='softmax'))
+model.add(layers.Dense(3, activation='softmax'))
 
 ## 최적화알고리즘은 sgd(경사하강법), 손실함수는 크로스엔트로피, metrics : 훈련과정기록으로 정확도를 남기기 위함.
 model.compile(optimizer='sgd', loss='categorical_crossentropy',metrics=['accuracy'])
 
-history = model.fit(x_train, y_train_encoded, epochs=30,
-                    validation_data=(x_val, y_val_encoded))
+history = model.fit(x_train, y1_train_encoded, epochs=25,
+                    validation_data=(x_val, y1_val_encoded))
+
+## 손실 추이
+plt.plot(history.history['loss'])
+plt.plot(history.history['val_loss'])
+plt.ylabel('loss')
+plt.xlabel('epoch')
+plt.legend(['train_loss', 'val_loss'])
+plt.show()
+
+###########################################################################
+
+history2 = model.fit(x_train, y2_train_encoded, epochs=25,
+                    validation_data=(x_val, y2_val_encoded))
+
+## 손실 추이
+plt.plot(history.history['loss'])
+plt.plot(history.history['val_loss'])
+plt.ylabel('loss')
+plt.xlabel('epoch')
+plt.legend(['train_loss', 'val_loss'])
+plt.show()
 
 ###########################################################################

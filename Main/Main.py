@@ -5,10 +5,10 @@ from Layer.MultiClassNetWork import *
 #외부 프레임워크
 import tensorflow as tf
 from sklearn.model_selection import train_test_split
-
+import numpy as np
 import matplotlib.pyplot as plt
 
-
+import sys
 
 util = Util()
 
@@ -71,8 +71,8 @@ for i in range(m):
 x = np.array(x)
 
 # 출력값, 6달 뒤의 대한해협 수온과 남해의 수온
-y1 = Ks_result
-y2 = ss_result
+y1 = np.array(Ks_result)
+y2 = np.array(ss_result)
 
 ## 다중분류니까 Tensorflow를 이용하자... 원핫인코딩에 사용
 

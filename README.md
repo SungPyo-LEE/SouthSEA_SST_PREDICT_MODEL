@@ -50,7 +50,7 @@ Score: 0.83
 * 출력층 정의 : 2 - 수온 매우 높음, 1 - 수온 높음, 0 - 수온 예상 변동 없음, -1 - 수온 하강 예상
 
 대한해협 손실함수
-![Tensor_KS](./Result/KS_Tensorflowpng)
+![Tensor_KS](./Result/KS_Tensorflow.png)
 Val_accuracy : 0.78
 
 남해 손실함수

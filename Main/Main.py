@@ -12,7 +12,7 @@ import sys
 
 util = Util()
 
-df = util.get_file("C:/Users/sunng/PycharmProjects/South_Sea_SST_ML/Raw_data.csv")
+df = util.get_file(Path+"/Raw_data.csv")
 
 #print(df)
 

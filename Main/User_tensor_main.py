@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 
 util = Util()
 
-df = util.get_file("C:/Users/sunng/PycharmProjects/South_Sea_SST_ML/Raw_data.csv")
+df = util.get_file(path+"/Raw_data.csv")
 
 #print(df)
 

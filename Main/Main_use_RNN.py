@@ -153,7 +153,7 @@ model.add(layers.Dense(3, activation='softmax'))
 model.compile(optimizer='sgd', loss='categorical_crossentropy',metrics=['accuracy'])
 
 
-history = model.fit(x_train, y1_train_encoded, epochs=25,
+history = model.fit(x_train, y1_train_encoded, epochs=35,
                     validation_data=(x_val, y1_val_encoded))
 
 ## 손실 추이
@@ -167,7 +167,7 @@ plt.show()
 
 ###########################################################################
 
-history2 = model.fit(x_train, y2_train_encoded, epochs=25,
+history2 = model.fit(x_train, y2_train_encoded, epochs=35,
                     validation_data=(x_val, y2_val_encoded))
 
 ## 손실 추이

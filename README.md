@@ -64,3 +64,15 @@ Val_accuracy : 0.83
 ## 시계열 데이터
 1. RNN을 이용해보자
 2. LSTM 모델을 이용해보자
+
+*RNN 결과
+남해 손실함수
+![RNN SS](./Result/SS_LOSS_RNN.png)
+Val_accuracy : 0.83
+
+*LSTM 결과
+남해 손실함수
+![LSTM_SS](./Result/SS_LOSS_LSTM.png)
+Val_accuracy : 0.83
+
+정확도는 그대로, LOSS는 줄어들었다.
